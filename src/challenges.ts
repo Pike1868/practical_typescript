@@ -94,7 +94,7 @@ let bike:{ brand: string, year: number } = { brand: "Huffy", year: 2024 }
 // bike = { brand: "Harley", year: "number" } // this will throw an error because the year can only be a number type 
 
 
-let laptop: { brand: string, year: number }  = { brand: "Apple", year: 2024 } 
+let pc: { brand: string, year: number }  = { brand: "Apple", year: 2024 } 
 // laptop = { brand: "Dell" } // will give us an error because the year property is missing
 
 let product1 = { title: "Laptop", price: 1000 }
@@ -125,3 +125,144 @@ function foundName(name:string):boolean{
 
 // console.log(foundName("Tucker") === false)
 // console.log(foundName("John") === true)
+
+/**Functions Using Union Types as Function Parameters
+ * 
+ * Challenge: Create a function named processInput that accepts a parameter of 
+ * a union type string | number. The function should behave as follows:
+ * 
+ * If the input is of type number, the function should multiply the number by 2
+ * and log the result to the console.
+ * 
+ * If the input is of type string, the function should convert the string to uppercase
+ * and log the result to the console.
+ * 
+ */
+
+function processInput(input:(string | number)):(string | number){
+  if(typeof(input) ==="string"){
+    return  input.toUpperCase()
+  }else{
+      return input * 2;
+  }
+   
+}
+
+
+// console.log(processInput("Help me")) //"HELP ME"
+// console.log(processInput(21)) // 42
+
+
+/**Functions Challenge 2:
+ * Create a function named processData that accepts two parameters:
+ * 
+ * The first parameter, input, should be a union type that can be either
+ * a string or a number.
+ * 
+ * The second parameter, config, should be an object with a reverse property
+ * of type boolean, by default it "reverse" should be false
+ * 
+ * The function should behave as follows:
+ * If input is of type number, the function should return the square of the number.
+ * If input is of type string, the function should return the string in the uppercase.
+ * If the reverse property on the config object is true, and the input is a string,
+ * the function should return the reverse string in uppercase.
+ * 
+*/
+
+function processData(input:(string|number), config:{reverse:boolean} = {reverse:false} ):(string|number){
+  if(typeof(input) ==="number") return input * input;
+  else if(typeof(input)==="string" && config.reverse === true) return input.split("").reverse().join("").toUpperCase();
+  else return input.toUpperCase()
+
+}
+
+// console.log(processData("Typescript", {reverse:true}))
+// console.log(processData("Typescript"))
+// console.log(processData(100))
+
+/**Challenge: Type Alias
+ * 
+ * Define the Employee type: create a type employee with properties id(number), 
+ * name(string), and department(string)
+ * 
+ * Define the Manager type: create a type manager with properties id(number),
+ * name(string), and employees(an array of Employee)
+ * 
+ * Create a Union Type: Define a type Staff that is a union of Employee and Manager
+ * 
+ * Create the printStaffDetails function: 
+ * This function should accept a parameter of type Staff. 
+ * Inside the function, use a type guard to check if the "employees" property exists in the second passed object. 
+ * If it does, print a message indicating that the person is a manager
+ * and the number of the employees they manage. If it doesn't, print a message indicating that the 
+ * person is an employee and the department they belong to
+ * 
+ * Create Employee and Manager objects: Create two Employee objects. One named Alice and the second
+ * named Steve. Also create a Manager object named Bob, who manages Alice and Steve.
+ * 
+ * Test the function: Call the printStaffDetails function with Alice and Bob as arguments and verify the output.
+ */
+
+type Employee = {id:number, name:string, department:string};
+type Manager = {id:number, name:string,employees:Employee[]};
+type Staff = (Employee | Manager)
+
+
+const alice: Employee = { id: 1, name: 'Alice', department: 'Sales' };
+const steve: Employee = { id: 1, name: 'Steve', department: 'HR' };
+const bob: Manager = { id: 2, name: 'Bob', employees: [alice, steve] };
+
+function printStaffDetails(staff:Staff):void{
+  //How can we check whether the staff object is the employee or the manager
+  //Cannot use type of here because they are both are equal to an object.
+  //So we need to use a property that is specific to the object we are checking for.
+  if("employees" in staff){
+    console.log(`${staff.name} is a manager, and manges ${staff.employees.length} employees`);
+  } else{
+    console.log(`${staff.name} is an employee, who works in the ${staff.department} department`)
+  }
+
+}
+
+// printStaffDetails(alice)
+// printStaffDetails(steve)
+// printStaffDetails(bob)
+
+/**Challenge
+ * Start by defining an interface Computer using the interface keyword. This will serve as a blueprint for objects that will be of this type.
+ * Inside the interface, define the properties that the object should have. In this case, we have id, brand, ram, and storage.
+ * Use the readonly keyword before the id property to indicate that it cannot be changed once it's set.
+ * Use the ? after the storage property to indicate that this property is optional and may not exist on all objects of this type.
+ * 
+ * Also inside the interface, define any methods that the object should have. 
+ * In this case, we have upgradeRam, which is a function that takes a number and returns a number.
+ * Now that we have our interface, we can create an object that adheres to this interface. 
+ * This object should have all the properties defined in the interface (except for optional ones, which
+ * are... optional), and the methods should be implemented.
+ * 
+ * Finally, we can use our object. We can call its upgradeRam method to increase its RAM.
+ */
+
+interface Computer{
+  readonly id:number,
+  brand: string,
+  ram:number,
+  storage?:number,
+  upgradeRam(increase:number):number
+}
+
+const laptop: Computer = {
+  id: 1,
+  brand: 'random brand',
+  ram: 8, // in GB
+  upgradeRam(amount: number) {
+    this.ram += amount;
+    return this.ram;
+  },
+};
+
+laptop.storage = 256; // assigning value to optional property
+
+// console.log(laptop.upgradeRam(4)); // upgrades RAM by 4GB
+// console.log(laptop);

@@ -51,7 +51,7 @@ function sayHi(name: string) {
     console.log(`Hello there ${name.toUpperCase()}!!!`);
   }
   
-  sayHi('john');
+  // sayHi('john');
 //   sayHi(3) // Argument of type 'number' is not assignable to parameter of type 'string'
 //   sayHi('peter', 'random'); //Expected 1 arguments, but got 2.
   
@@ -80,3 +80,169 @@ function sayHi(name: string) {
   
 // the code below will cause a run time error
 //   someValue.myMethod(); // Uncaught TypeError: someValue.myMethod is not a function
+
+
+//Functions - rest parameters example
+
+function sum(message:string, ...numbers:number[]):string{
+
+  let total = numbers.reduce((previous, current)=> previous + current )
+
+  return `${message} ${total}`
+}
+
+// console.log(sum('The total is:', 1,2,3,4,5))
+
+
+/**What type should we return if we are not returning anything from the function?
+ * We should return the void type
+ */
+
+function logMessage(message: string):void{
+  console.log(message);
+  // return 'hello world'; 
+  // if we do try to return somthing after setting the return type to void
+  //TS will give us a warning that: Type 'string' is not assignable to type 'void'
+
+}
+
+// logMessage("Hello, TypeScript")
+
+//Function - Using Objects as Function Parameters
+
+function createEmployee({ id }: { id: number }) {
+  return { id, isActive: id % 2 === 0 };
+}
+
+const first = createEmployee({ id: 1 });
+const second = createEmployee({ id: 2 });
+// console.log(first, second);
+
+// alternative
+function createStudent(student: { id: number; name: string }): void {
+  console.log(`Welcome to the course ${student.name.toUpperCase()}!!!`);
+}
+
+const newStudent = {
+  id: 5,
+  name: 'tucker',
+};
+
+// createStudent(newStudent);
+
+
+
+/**Type Alias
+ * A type alias in TS is a new name or shorthand for an existing type, making it easier to reuse complex types.
+ * However, it's important to note that it doesn't create a new unique type - it's just an alias. All the same
+ * rules apply to the aliased type, including the ability to mark properties as optional or readonly.
+ * 
+ * type aliases are primarily used for type checking. They do not compile to any code on their own in JS;
+ * they are used purely by TypeScript to ensure types are correct during development.
+ */
+
+//'type is the keyword here, and then 
+type User = { id: number; name: string; isActive: boolean };
+
+const john: User = {
+  id: 1,
+  name: 'john',
+  isActive: true,
+};
+const susan: User = {
+  id: 1,
+  name: 'susan',
+  isActive: false,
+};
+
+function createUser(user: User): User {
+  console.log(`Hello there ${user.name.toUpperCase()} !!!`);
+  return user;
+}
+
+type StringOrNumber = string | number; // Type alias for string | number
+
+let value: StringOrNumber;
+value = 'hello'; // This is valid
+value = 123; // This is also valid
+
+type Theme = 'light' | 'dark'; // Type alias for theme
+
+let theme: Theme;
+theme = 'light'; // This is valid
+theme = 'dark'; // This is also valid
+
+// Function that accepts the Theme type alias
+function setTheme(t: Theme) {
+  theme = t;
+}
+
+setTheme('dark'); // This will set the theme to 'dark'
+
+
+/**Intersection Types
+ * In TS an intersection type is a way of combining multiple types into one.
+ * This means that an object of an intersection type will have all the properties
+ * of TypeA and all the properties of TypeB. It's a way of creating a new type that
+ * merges the properties of existing types.
+*/
+// type Book = {id:number, name:string, price:number}
+// type DiscountedBook = Book & {discount:number}
+
+// const book1:Book={
+//   id:1, 
+//   name: "Harry Potter and the Sorcer's Stone",
+//   price: 15
+// }
+
+// const book2:Book={
+//   id:2, 
+//   name: "Harry Potter and the Chamber of Secrets",
+//   price: 18
+// }
+
+// const discountBook:DiscountedBook = {
+//   id:2, 
+//   name: "Harry Potter and the Prisoner of Azkaban",
+//   price: 18,
+//   discount: 0.15,
+// }
+
+/**Interfaces
+ * An interface declaration is another way to name an object type
+ * 
+ * Type aliases and interfaces are very similar, and in many cases you can choose between them freely. 
+ * Almost all features of an interface are available in type, the key distinction is that a type cannot 
+ * be re-opened to add new properties vs an interface which is always extendable.
+ * 
+ */
+
+interface Book{
+  readonly isbn:number,
+  title: string,
+  author: string,
+  genre?:string
+  //method blueprint but not the actual logic
+  printAuthor():void;
+  printTitle(message:string):string;
+}
+
+
+const deepWork: Book = {
+  isbn:123,
+  title:"deep work",
+  author: "cal newport",
+  genre:"self-help",
+  //inside of the instance we can setup the actual method and just follow the blueprint
+  //making sure we set the type if we are returning anything
+  printAuthor(){
+    console.log(this.author)
+  },
+  printTitle(message:string){
+    return `${this.title} ${message}`
+  }
+}
+
+// deepWork.printAuthor()
+// console.log(deepWork.printTitle("is a really good book"))
+
