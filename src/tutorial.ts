@@ -246,3 +246,15 @@ const deepWork: Book = {
 // deepWork.printAuthor()
 // console.log(deepWork.printTitle("is a really good book"))
 
+/**Choosing Between Type Aliases and Interfaces
+ * 
+ * Use a type alias when you need to define a type that might not strictly represent an object structure, 
+ * or when you need to use unions and intersections extensively.
+ * 
+ * Use an interface when you expect to extend or modify the shape of objects across your application, 
+ * and when you want to leverage object-oriented features such as inheritance.
+ * 
+ * Key Differences
+ * Type aliases can represent primitive types, union types, intersection types, tuples, etc., 
+ * while interfaces are primarily used to represent the shape of an object.
+ */
