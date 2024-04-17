@@ -294,7 +294,7 @@ interface Manager extends Person, DogOwner{
 }
 
 const employee: Person | DogOwner | Manager = getEmployee();
-console.log(employee)
+// console.log(employee)
 
 function getEmployee(): Person |DogOwner | Manager {
   const random = Math.random();
@@ -332,3 +332,61 @@ function isManager(obj: Person | DogOwner | Manager): obj is Manager {
 if (isManager(employee)) {
   employee.delegateTasks();
 }
+
+/**Enum Challenge
+ * Define an enum named UserRole with members Admin, Manager, and Employee.
+ * Define a type alias named User with properties id (number), name (string), role (UserRole), and contact (a tuple with two elements: email as string and phone as string).
+ * Define a function named createUser that takes a User object as its parameter and returns a User object.
+ * Call the createUser function with an object that matches the User type, store the result in a variable, and log the variable to the console.
+ */
+
+// enum UserRole {
+//   Admin,
+//   Manager,
+//   Employee
+// }
+
+// type User = {
+//   id:number,
+//   name:string,
+//   role:UserRole,
+//   contact: [string, string] // Tuple [email, phone]
+// }
+
+// function createUser(input:User):User{
+//   return input
+// }
+// console.log(createUser({
+//   id:1,
+//   name:"John Doe",
+//   role: UserRole.Admin,
+//   contact:["john.doe@test.com", "123-456-7890"],
+// }));
+
+
+//Challenge "typeof" guard:
+/**Define the function checkValue that takes one parameter value of type ValueType.
+Inside the function, use an if statement to check if value is of type string. If it is, log value converted to lowercase and then return from the function.
+If value is not a string, use another if statement to check if value is of type number. If it is, log value formatted to two decimal places and then return from the function.
+If value is neither a string nor a number, it must be a boolean. Log the string "boolean: " followed by the boolean value.
+Finally, call the checkValue function with value as the argument.
+ */
+
+type ValueType = string | number | boolean;
+
+let value: ValueType;
+const random = Math.random();
+value = random < 0.33 ? 'Hello' : random < 0.66 ? 123.456 : true;
+function checkValue(value: ValueType) {
+  if (typeof value === 'string') {
+    console.log(value.toLowerCase());
+    return;
+  }
+  if (typeof value === 'number') {
+    console.log(value.toFixed(2));
+    return;
+  }
+  console.log(`boolean: ${value}`);
+}
+
+// checkValue(value);

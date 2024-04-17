@@ -23,7 +23,7 @@ let notSure:any = 4;
 // notSure = false
 
 //if we just initialize a variable without a value ts will default to any
-let random; // this will be of the type "any"
+// let random; // this will be of the type "any"
 
 
 /**Practical Example */
@@ -142,29 +142,29 @@ const newStudent = {
  */
 
 //'type is the keyword here, and then 
-type User = { id: number; name: string; isActive: boolean };
+// type User = { id: number; name: string; isActive: boolean };
 
-const john: User = {
-  id: 1,
-  name: 'john',
-  isActive: true,
-};
-const susan: User = {
-  id: 1,
-  name: 'susan',
-  isActive: false,
-};
+// const john: User = {
+//   id: 1,
+//   name: 'john',
+//   isActive: true,
+// };
+// const susan: User = {
+//   id: 1,
+//   name: 'susan',
+//   isActive: false,
+// };
 
-function createUser(user: User): User {
-  console.log(`Hello there ${user.name.toUpperCase()} !!!`);
-  return user;
-}
+// function createUser(user: User): User {
+//   console.log(`Hello there ${user.name.toUpperCase()} !!!`);
+//   return user;
+// }
 
-type StringOrNumber = string | number; // Type alias for string | number
+// type StringOrNumber = string | number; // Type alias for string | number
 
-let value: StringOrNumber;
-value = 'hello'; // This is valid
-value = 123; // This is also valid
+// let value: StringOrNumber;
+// value = 'hello'; // This is valid
+// value = 123; // This is also valid
 
 type Theme = 'light' | 'dark'; // Type alias for theme
 
@@ -258,3 +258,149 @@ const deepWork: Book = {
  * Type aliases can represent primitive types, union types, intersection types, tuples, etc., 
  * while interfaces are primarily used to represent the shape of an object.
  */
+
+/**Tuples
+ * In TS, a tuple is a special type that allows you to create an array where the type of a fixed number
+ * of elements is known, but do not need to be the same. In other words it's an array with fixed length
+ * and ordered with fixed types. This is useful when we want to group different types of values together.
+ * 
+ * Tuples are useful when you want to return multiple values from a function.
+ * 
+ * By default tuples in TypeScript are not read-only. This means you can modify the values of the elements
+ * in the tuple. However, TypeScript does provide a way to make tuples read-only using the readonly keyword.
+ */
+
+let someTup: [string, number] = ["Tucker", 7]
+// console.log(someTup)
+
+/**Enums
+ * Enums in TS allow us to define a set of named constants. Using enums can make it easier to document intent,
+ * or create a set of distinct cases.
+ */
+
+enum ServerResponseStatus{
+  Success, 
+  Error
+}
+
+interface ServerResponse{
+  result: ServerResponseStatus,
+  data: string[]
+}
+
+function getServerResponse(): ServerResponse{
+  return {
+    result: ServerResponseStatus.Success,
+    data: ["first item", "second item"],
+  }
+}
+
+const response: ServerResponse = getServerResponse();
+
+// console.log(response)
+
+/**Type assertions are a way to tell the compiler what the type of an existing variable is. 
+ * This is especially useful when you know more about the type of a variable than TS does.
+ * 
+ * Type - "unknown"
+ * The unknown type in TS is a type safe counterpart of the any type. It's like saying that a variable
+ * could be anything, but we need to perform some type checking before we can use it.
+ * 
+ * "Error instanceof Error" checks if the error object is an instance of the Error class.
+ * 
+ * Type - "never"
+ * 
+ * In TS, never is a type that represents the type of values that never occur. You cannot assign
+ * any value to a variable of type never. TS will give a compile error if there are any unhandled cases,
+ * helping ensure that all cases are handled.
+ */
+
+// let someValue: never = 0;
+
+// type Theme = 'light' | 'dark';
+
+function checkTheme(theme: Theme) {
+  if (theme === 'light') {
+    console.log('light theme');
+    return;
+  }
+  if (theme === 'dark') {
+    console.log('dark theme');
+    return;
+  }
+  theme;
+  // theme is of type never, because it can never have a value that is not 'light' or 'dark'.
+}
+
+/**
+ * If your TS files aren't modules (i.e., they don't have any import or export statements)
+ * they're treated as scripts in the global scope. In this case, declaring the same variable
+ * in two different files would cause a conflict.
+ * 
+ */
+
+/**Type Guarding is a term in TS that refers to the ability to narrow down the type of an object within a certain scope.
+ * This is usually done using conditional statements that check the type of an object.
+ * 
+ * In the context of TypeScript, a type guard is some expression that performs a runtime check that guarantees the type in some scope.
+ */
+
+/**Type Predicate is a function whose return type is a special kind of type that can be used
+ * to narrow down types within conditional blocks
+ */
+
+/**Discriminated Unions and exhaustive check using the never type
+ * 
+ * A discriminated union in TS is a type that can be one of the several different types, each identified by a unique literal property
+ * (the discriminator), allowing for type-safe handling of each possible variant.
+ */
+
+
+/**Generics 
+ * Generics in TS are a way to create reusable code components that work with a variety of types as opposed to a single one.
+ * 
+ * In other words, generics allow you to write a function or a class that can work with any data type. You can think of generics
+ * as a kind of variable for types.
+ */
+
+// In TypeScript, you can declare an array using two syntaxes:
+
+// let array1: string[] = ['Apple', 'Banana', 'Mango'];
+// let array2: number[] = [1, 2, 3];
+// let array3: boolean[] = [true, false, true];
+
+// let array1: Array<string> = ['Apple', 'Banana', 'Mango'];
+// let array2: Array<number> = [1, 2, 3];
+// let array3: Array<boolean> = [true, false, true];
+
+//Create a function that contains any type and return that same type
+
+//usually you would need to do this if it is not a generic
+// function createString(arg:string):string{
+//   return arg
+// }
+
+function genericFunction<T>(arg:T):T{
+return arg
+}
+
+// console.log(genericFunction("Hello"))
+// console.log(genericFunction(true))
+// console.log(genericFunction(100))
+
+// const someStrVal = genericFunction<string>("Hello World")
+// const someNumVal = genericFunction<number>(21)
+
+// console.log(someNumVal, someStrVal)
+
+interface GenericInterface<T>{
+  value:T;
+  getValue:() => T;
+}
+
+const genericString:GenericInterface<string> = {
+  value:"Hello World",
+  getValue(){
+    return this.value;
+  },
+};
