@@ -2,22 +2,22 @@ console.log("======= TypeScript practice playground========")
 
 //Union types allow us to setup multiple types
 
-let tax: number | string = 10
-tax = 100;
+// let tax: number | string = 10
+// tax = 100;
 // console.log(tax)
 
-tax = "$10";
+// tax = "$10";
 // console.log(tax)
 
 //literal value types allow us to only allow certain values for a variable
 
-let requestStatus: "pending" | "success" |"error" = "pending";
+// let requestStatus: "pending" | "success" |"error" = "pending";
 
 // requestStatus = "404" , will give us a warning
 
 //the type any will let us use any type, this is how js usually works
 //make sure you have a good reason to use the type of any...
-let notSure:any = 4;
+// let notSure:any = 4;
 
 // notSure = "now it is a string";
 // notSure = false
@@ -28,17 +28,17 @@ let notSure:any = 4;
 
 /**Practical Example */
 
-const books: string[] = ['1984', 'Brave New World', 'Fahrenheit 451']
+// const books: string[] = ['1984', 'Brave New World', 'Fahrenheit 451']
 
 //we need to use undefined because ts is not sure if this for sure will be a string at this time
-let foundBook: string | undefined;
+// let foundBook: string | undefined;
 
-for(let book of books){
-    if(book === '1984'){
-        foundBook = book;
-        break;
-    }
-}
+// for(let book of books){
+//     if(book === '1984'){
+//         foundBook = book;
+//         break;
+//     }
+// }
 //Then ts will add the optional chaining of ? if foundBook is indeed a string
 // console.log(foundBook?.length)
 
@@ -47,9 +47,9 @@ for(let book of books){
  * type checking and autocompletion support
  */
 
-function sayHi(name: string) {
-    console.log(`Hello there ${name.toUpperCase()}!!!`);
-  }
+// function sayHi(name: string) {
+//     console.log(`Hello there ${name.toUpperCase()}!!!`);
+//   }
   
   // sayHi('john');
 //   sayHi(3) // Argument of type 'number' is not assignable to parameter of type 'string'
@@ -57,17 +57,17 @@ function sayHi(name: string) {
   
 
 //Function returns : we can set the type we are expected to return, in this case we use :number after the params
-  function calculateDiscount(price: number): number {
-    // price.toUpperCase(); //Property 'toUpperCase' does not exist on type 'number'
-    const hasDiscount = true;
-    if (hasDiscount) {
-      return price;
-    //   return 'Discount Applied'; //2 errors Unreachable code detected, Type 'string' is not assignable to type 'number'
-    }
-    return price * 0.9;
-  }
+  // function calculateDiscount(price: number): number {
+  //   // price.toUpperCase(); //Property 'toUpperCase' does not exist on type 'number'
+  //   const hasDiscount = true;
+  //   if (hasDiscount) {
+  //     return price;
+  //   //   return 'Discount Applied'; //2 errors Unreachable code detected, Type 'string' is not assignable to type 'number'
+  //   }
+  //   return price * 0.9;
+  // }
   
-  const finalPrice = calculateDiscount(200);
+  // const finalPrice = calculateDiscount(200);
 //   console.log(finalPrice);
   
 //   // "any" example
@@ -84,12 +84,12 @@ function sayHi(name: string) {
 
 //Functions - rest parameters example
 
-function sum(message:string, ...numbers:number[]):string{
+// function sum(message:string, ...numbers:number[]):string{
 
-  let total = numbers.reduce((previous, current)=> previous + current )
+//   let total = numbers.reduce((previous, current)=> previous + current )
 
-  return `${message} ${total}`
-}
+//   return `${message} ${total}`
+// }
 
 // console.log(sum('The total is:', 1,2,3,4,5))
 
@@ -98,35 +98,35 @@ function sum(message:string, ...numbers:number[]):string{
  * We should return the void type
  */
 
-function logMessage(message: string):void{
-  console.log(message);
-  // return 'hello world'; 
-  // if we do try to return somthing after setting the return type to void
-  //TS will give us a warning that: Type 'string' is not assignable to type 'void'
+// function logMessage(message: string):void{
+//   console.log(message);
+//   // return 'hello world'; 
+//   // if we do try to return somthing after setting the return type to void
+//   //TS will give us a warning that: Type 'string' is not assignable to type 'void'
 
-}
+// }
 
 // logMessage("Hello, TypeScript")
 
 //Function - Using Objects as Function Parameters
 
-function createEmployee({ id }: { id: number }) {
-  return { id, isActive: id % 2 === 0 };
-}
+// function createEmployee({ id }: { id: number }) {
+//   return { id, isActive: id % 2 === 0 };
+// }
 
-const first = createEmployee({ id: 1 });
-const second = createEmployee({ id: 2 });
-// console.log(first, second);
+// const first = createEmployee({ id: 1 });
+// const second = createEmployee({ id: 2 });
+// // console.log(first, second);
 
-// alternative
-function createStudent(student: { id: number; name: string }): void {
-  console.log(`Welcome to the course ${student.name.toUpperCase()}!!!`);
-}
+// // alternative
+// function createStudent(student: { id: number; name: string }): void {
+//   console.log(`Welcome to the course ${student.name.toUpperCase()}!!!`);
+// }
 
-const newStudent = {
-  id: 5,
-  name: 'tucker',
-};
+// const newStudent = {
+//   id: 5,
+//   name: 'tucker',
+// };
 
 // createStudent(newStudent);
 
@@ -166,18 +166,18 @@ const newStudent = {
 // value = 'hello'; // This is valid
 // value = 123; // This is also valid
 
-type Theme = 'light' | 'dark'; // Type alias for theme
+// type Theme = 'light' | 'dark'; // Type alias for theme
 
-let theme: Theme;
-theme = 'light'; // This is valid
-theme = 'dark'; // This is also valid
+// let theme: Theme;
+// theme = 'light'; // This is valid
+// theme = 'dark'; // This is also valid
 
-// Function that accepts the Theme type alias
-function setTheme(t: Theme) {
-  theme = t;
-}
+// // Function that accepts the Theme type alias
+// function setTheme(t: Theme) {
+//   theme = t;
+// }
 
-setTheme('dark'); // This will set the theme to 'dark'
+// setTheme('dark'); // This will set the theme to 'dark'
 
 
 /**Intersection Types
@@ -217,31 +217,31 @@ setTheme('dark'); // This will set the theme to 'dark'
  * 
  */
 
-interface Book{
-  readonly isbn:number,
-  title: string,
-  author: string,
-  genre?:string
-  //method blueprint but not the actual logic
-  printAuthor():void;
-  printTitle(message:string):string;
-}
+// interface Book{
+//   readonly isbn:number,
+//   title: string,
+//   author: string,
+//   genre?:string
+//   //method blueprint but not the actual logic
+//   printAuthor():void;
+//   printTitle(message:string):string;
+// }
 
 
-const deepWork: Book = {
-  isbn:123,
-  title:"deep work",
-  author: "cal newport",
-  genre:"self-help",
-  //inside of the instance we can setup the actual method and just follow the blueprint
-  //making sure we set the type if we are returning anything
-  printAuthor(){
-    console.log(this.author)
-  },
-  printTitle(message:string){
-    return `${this.title} ${message}`
-  }
-}
+// const deepWork: Book = {
+//   isbn:123,
+//   title:"deep work",
+//   author: "cal newport",
+//   genre:"self-help",
+//   //inside of the instance we can setup the actual method and just follow the blueprint
+//   //making sure we set the type if we are returning anything
+//   printAuthor(){
+//     console.log(this.author)
+//   },
+//   printTitle(message:string){
+//     return `${this.title} ${message}`
+//   }
+// }
 
 // deepWork.printAuthor()
 // console.log(deepWork.printTitle("is a really good book"))
@@ -270,7 +270,7 @@ const deepWork: Book = {
  * in the tuple. However, TypeScript does provide a way to make tuples read-only using the readonly keyword.
  */
 
-let someTup: [string, number] = ["Tucker", 7]
+// let someTup: [string, number] = ["Tucker", 7]
 // console.log(someTup)
 
 /**Enums
@@ -278,24 +278,24 @@ let someTup: [string, number] = ["Tucker", 7]
  * or create a set of distinct cases.
  */
 
-enum ServerResponseStatus{
-  Success, 
-  Error
-}
+// enum ServerResponseStatus{
+//   Success, 
+//   Error
+// }
 
-interface ServerResponse{
-  result: ServerResponseStatus,
-  data: string[]
-}
+// interface ServerResponse{
+//   result: ServerResponseStatus,
+//   data: string[]
+// }
 
-function getServerResponse(): ServerResponse{
-  return {
-    result: ServerResponseStatus.Success,
-    data: ["first item", "second item"],
-  }
-}
+// function getServerResponse(): ServerResponse{
+//   return {
+//     result: ServerResponseStatus.Success,
+//     data: ["first item", "second item"],
+//   }
+// }
 
-const response: ServerResponse = getServerResponse();
+// const response: ServerResponse = getServerResponse();
 
 // console.log(response)
 
@@ -319,18 +319,18 @@ const response: ServerResponse = getServerResponse();
 
 // type Theme = 'light' | 'dark';
 
-function checkTheme(theme: Theme) {
-  if (theme === 'light') {
-    console.log('light theme');
-    return;
-  }
-  if (theme === 'dark') {
-    console.log('dark theme');
-    return;
-  }
-  theme;
+// function checkTheme(theme: Theme) {
+//   if (theme === 'light') {
+//     console.log('light theme');
+//     return;
+//   }
+//   if (theme === 'dark') {
+//     console.log('dark theme');
+//     return;
+//   }
+//   theme;
   // theme is of type never, because it can never have a value that is not 'light' or 'dark'.
-}
+// }
 
 /**
  * If your TS files aren't modules (i.e., they don't have any import or export statements)
@@ -380,9 +380,9 @@ function checkTheme(theme: Theme) {
 //   return arg
 // }
 
-function genericFunction<T>(arg:T):T{
-return arg
-}
+// function genericFunction<T>(arg:T):T{
+// return arg
+// }
 
 // console.log(genericFunction("Hello"))
 // console.log(genericFunction(true))
@@ -393,14 +393,148 @@ return arg
 
 // console.log(someNumVal, someStrVal)
 
-interface GenericInterface<T>{
-  value:T;
-  getValue:() => T;
+// interface GenericInterface<T>{
+//   value:T;
+//   getValue:() => T;
+// }
+
+// const genericString:GenericInterface<string> = {
+//   value:"Hello World",
+//   getValue(){
+//     return this.value;
+//   },
+// };
+
+
+
+/**Classes in TypeScript
+ * Fields: A field declaration creates a public writeable property on a class:
+ *  
+ * readonly - Fields may be prefixed with the readonly modifier. This prevents assignments to the field outside of the constructor.
+ * 
+ * You can use TS to control whether certain methods or properties are visible to code outside the class.
+ * 
+ * public - the default visibility of class members 
+ * protected -  members are only visible to subclasses of the class they’re declared in
+ * private - like protected, but doesn’t allow access to the member even from subclasses:
+*/
+
+// class Book{
+//   // Need to explicitly setup the types for properties in classes (these are fields)
+//   title: string;
+//   author: string;
+//   //checkedOut: boolean = false
+//   checkedOut = false;
+
+//  // Note that the field needs to be initialized in the constructor itself. 
+//   constructor(title:string, author:string){
+//     this.title = title,
+//     this.author = author
+//   }
+// }
+
+// const deepWork = new Book("Deep Work", "Cal Newport");
+
+// console.log(deepWork)
+// deepWork.checkedOut = true;
+// console.log(deepWork.checkedOut)
+
+
+
+
+// class Greeter {
+//   readonly name: string = "world";
+ 
+//   constructor(otherName?: string) {
+//     if (otherName !== undefined) {
+//       this.name = otherName;
+//     }
+//   }
+ 
+//   err() {
+// this.name = "not ok";
+// Cannot assign to 'name' because it is a read-only property.
+//   }
+// }
+// const g = new Greeter();
+// g.name = "also not ok";
+// Cannot assign to 'name' because it is a read-only property.
+
+// class Book {
+//   public readonly title: string;
+//   public author: string;
+//   private checkedOut: boolean = false;
+//   constructor(title: string, author: string) {
+//     this.title = title;
+//     this.author = author;
+//   }
+//   public checkOut() {
+//     this.checkedOut = this.toggleCheckedOutStatus();
+//   }
+//   public isCheckedOut() {
+//     return this.checkedOut;
+//   }
+//   private toggleCheckedOutStatus() {
+//     return !this.checkedOut;
+//   }
+// }
+
+
+// deepWork.checkOut();
+// console.log(deepWork.isCheckedOut()); // true
+// deepWork.toggleCheckedOutStatus(); // Error: Property 'toggleCheckedOutStatus' is private and only accessible within class 'Book'.
+
+/**
+ * Classes - Shorthand Syntax
+ * In TypeScript, if you want to use the shorthand for creating and initializing class properties in the constructor, you need to use public, private, or protected access modifiers.
+ * 
+ * TS has some special inference rues for accessors:
+ * If get exists but no set, the property is automatically readonly
+ * If the type of the setter parameter is not specified, it is inferred from the return type of the getter
+ * Getters and setters must have the same Member Visibility
+ * 
+ * */
+
+// class Book {
+//   private checkedOut: boolean = false;
+//   constructor(
+//     public readonly title: string, 
+//     public author: string){}
+//     get info(){
+//       return `${this.title} by ${this.author}`
+//     }
+//     private set checkOut(checkedOut: boolean){
+//       this.checkedOut = checkedOut;
+//     }
+//     get checkOut(){
+//       return this.checkedOut;
+//     }
+//     public get someInfo(){
+//       this.checkOut = true;
+//       return `${this.title} by ${this.author}`
+//     }
+// }
+
+// const deepWork = new Book('Deep Work', 'Cal Newport');
+
+// console.log(deepWork.someInfo, "someInfo")
+// console.log(deepWork.checkOut, "checkOut")
+
+
+/**Classes implementing interfaces */
+
+interface IPerson{
+  name:string;
+  age: number;
+  greet(): void;
 }
 
-const genericString:GenericInterface<string> = {
-  value:"Hello World",
-  getValue(){
-    return this.value;
-  },
-};
+class Person implements IPerson{
+  constructor(public name:string, public age:number){}
+  greet():void{
+    console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old`);
+  }
+}
+
+const hipster = new Person("Tucker", 7)
+hipster.greet()

@@ -4,13 +4,14 @@ import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 import "./tutorial.ts"
 import "./challenges.ts"
+import "./fetchTutorial.ts"
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
+    <a href="/tasks" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
+    <a href="/tasks" target="_blank">
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>
     <h1>Vite + TypeScript</h1>
